@@ -1,0 +1,24 @@
+{
+  "name": "server-ws",
+  "version": "1.0.0",
+  "description": "the websocket server for turningfrogs.gay",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gen2inc/server-ws.git"
+  },
+  "author": "ellie",
+  "type": "module",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/gen2inc/server-ws/issues"
+  },
+  "homepage": "https://github.com/gen2inc/server-ws#readme",
+  "dependencies": {
+    "minecraft-server-util": "^5.4.4",
+    "ws": "^8.13.0"
+  }
+}
