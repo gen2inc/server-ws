@@ -3,10 +3,33 @@ import * as util from 'minecraft-server-util';
 
 const wss = new WebSocketServer({ port: 8080 });
 
-wss.on('connection', function connection(ws) {
+wss.on('connection', async function connection(ws) {
   ws.on('message', function message(data) {
     console.log('received: %s', data);
   });
+
+  ws.on('close', () => {
+    console.log("a client has disconnected")
+  })
+
+  
+  try {
+    const options = {
+        timeout: 1000 * 5, // timeout in milliseconds
+        enableSRV: true // SRV record lookup
+    };
+    // mcis.turningfrogs.gay
+    const res = await util.status("mc.hypixel.net", 25565, options)
+    ws.send(JSON.stringify({
+        ver: res.version.name.replace("Paper ", ""),
+        online: res.players.online, 
+        max: res.players.max,
+    }))
+  } catch (e) {
+      console.error(e);
+      ws.send("error")
+  }
+
 
   setInterval(async () => {
     try {
@@ -14,6 +37,7 @@ wss.on('connection', function connection(ws) {
             timeout: 1000 * 5, // timeout in milliseconds
             enableSRV: true // SRV record lookup
         };
+        // mcis.turningfrogs.gay
         const res = await util.status("mcis.turningfrogs.gay", 25565, options)
         ws.send(JSON.stringify({
             ver: res.version.name.replace("Paper ", ""),
@@ -24,5 +48,5 @@ wss.on('connection', function connection(ws) {
         console.error(e);
         ws.send("error")
     }
-  }, 5000);
+  }, 8000);
 });
