@@ -18,8 +18,8 @@ wss.on('connection', async function connection(ws) {
         timeout: 1000 * 5, // timeout in milliseconds
         enableSRV: true // SRV record lookup
     };
-    // mcis.turningfrogs.gay
-    const res = await util.status("mc.hypixel.net", 25565, options)
+    
+    const res = await util.status("mcis.turningfrogs.gay", 25565, options)
     ws.send(JSON.stringify({
         ver: res.version.name.replace("Paper ", ""),
         online: res.players.online, 
