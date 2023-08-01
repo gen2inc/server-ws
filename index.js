@@ -9,6 +9,7 @@ wss.on('connection', async function connection(ws) {
   });
 
   ws.on('close', () => {
+    clearInterval(saygex);
     console.log("a client has disconnected")
   })
 
@@ -31,13 +32,13 @@ wss.on('connection', async function connection(ws) {
   }
 
 
-  setInterval(async () => {
+  var saygex = setInterval(async () => {
     try {
         const options = {
             timeout: 1000 * 5, // timeout in milliseconds
             enableSRV: true // SRV record lookup
         };
-        // mcis.turningfrogs.gay
+
         const res = await util.status("mcis.turningfrogs.gay", 25565, options)
         ws.send(JSON.stringify({
             ver: res.version.name.replace("Paper ", ""),
